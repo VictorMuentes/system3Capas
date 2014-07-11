@@ -54,7 +54,7 @@ public class GestionCliente implements IGestion
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     try{
     Conexion.GetInstancia().Conectar();
-    Conexion.GetInstancia().Ejecutar("update cliente set (nombre='"+this.client.getNombre()+"',direccion='"+this.client.getDireccion()+"',Cupo="+this.client.getCupo()+")where='"+this.client.getCedula()+"'");
+    Conexion.GetInstancia().Ejecutar("UPDATE cliente SET nombre='"+this.client.getNombre()+"', direccion = '"+this.client.getDireccion()+"', cupo = '"+this.client.getCupo()+"' WHERE cedula = "+this.client.getCedula());
     Conexion.GetInstancia().Desconectar();
     }
     catch(SQLException e)
@@ -66,15 +66,13 @@ public class GestionCliente implements IGestion
     @Override
     public void Nuevo() throws SQLException {
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    try{
-    Conexion.GetInstancia().Conectar();
-    Conexion.GetInstancia().Ejecutar("insert into cliente(cedula,nombre,direccion,cupo) values ('"+this.client.getCedula()+"','"+this.client.getNombre()+"','"+this.client.getDireccion()+"',"+this.client.getCupo()+")");
-    Conexion.GetInstancia().Desconectar();
-    }
-    catch(SQLException e)
-    {
-    throw e;
-    }
+    
+    this.client.setCedula(" ");
+    this.client.setNombre(" ");
+    this.client.setDireccion(" ");
+    this.client.setCupo(00.00);
+    
+    
     }
 
     @Override
@@ -82,8 +80,9 @@ public class GestionCliente implements IGestion
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     try{
     Conexion.GetInstancia().Conectar();
-    Conexion.GetInstancia().Ejecutar("delete * from cliente where cedula='"+this.client.getCedula()+"')");
+    Conexion.GetInstancia().Ejecutar("DELETE FROM Cliente WHERE Cedula = "+client.getCedula());
     Conexion.GetInstancia().Desconectar();
+//    DELETE FROM `facturacion`.`cliente` WHERE `cliente`.`cedula` = \'123\'"
     }
     catch(SQLException e)
     {
@@ -96,7 +95,7 @@ public class GestionCliente implements IGestion
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     try{
     Conexion.GetInstancia().Conectar();
-    Conexion.GetInstancia().Ejecutar("seletc from cliente where cedula='"+this.client.getCedula()+"')");
+    Conexion.GetInstancia().Ejecutar("select * from cliente WHERE Cedula = "+client.getCedula());
     Conexion.GetInstancia().Desconectar();
     }
     catch(SQLException e)

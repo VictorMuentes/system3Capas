@@ -169,10 +169,7 @@ public class Cliente extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        gestClient.getCliente().setCedula(txtCedula.getText());
-        gestClient.getCliente().setNombre(txtNombre.getText());
-        gestClient.getCliente().setDireccion(txtDireccion.getText());
-        gestClient.getCliente().setCupo(Double.parseDouble(txtCupo.getText()));
+        enviarValores();
         try
         {
         gestClient.Grabar();
@@ -183,20 +180,32 @@ public class Cliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+public void enviarValores(){
+        gestClient.getCliente().setCedula(txtCedula.getText());
+        gestClient.getCliente().setNombre(txtNombre.getText());
+        gestClient.getCliente().setDireccion(txtDireccion.getText());
+        gestClient.getCliente().setCupo(Double.parseDouble(txtCupo.getText()));
+
+}
+public void  pedirValores(){
+        txtNombre.setText(gestClient.getCliente().getNombre()); 
+        txtDireccion.setText(gestClient.getCliente().getDireccion());
+        txtCupo.setText(Double.toString(gestClient.getCliente().getCupo()));
+        txtCedula.setText(gestClient.getCliente().getCedula());
+//        gestClient.getCliente().getDireccion();
+//        gestClient.getCliente().getCupo();
+        
+}
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
-        gestClient.getCliente().setCedula(txtCedula.getText());
-//        gestClient.getCliente().setNombre(txtNombre.getText());
-//        gestClient.getCliente().setDireccion(txtDireccion.getText());
-//        gestClient.getCliente().setCupo(Double.parseDouble(txtCupo.getText()));
+          gestClient.getCliente().setCedula(txtCedula.getText());
+
         try
         {
-       // gestClient.Consultar();
-        gestClient.getCliente().getNombre();
-        gestClient.getCliente().getDireccion();
-        gestClient.getCliente().getCupo();
+
         gestClient.Consultar();
+        enviarValores();
 
                 // JOptionPane.showMessageDialog(this, "El dato se grabo Correctamente");
         }
@@ -208,14 +217,51 @@ public class Cliente extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        pedirValores();
+        try
+        {
+        gestClient.Nuevo();
+        
+
+        
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        enviarValores();
+        try
+        {
+        gestClient.Modificar();
+        
+
+        JOptionPane.showMessageDialog(this, "El dato se modificó Correctamente");
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        gestClient.getCliente().setCedula(txtCedula.getText());
+         try
+        {
+
+        gestClient.Eliminar();
+        
+
+        JOptionPane.showMessageDialog(this, "El dato se eliminó Correctamente");
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
