@@ -23,8 +23,6 @@ public class Conexion
  Connection Conn=null;
     PreparedStatement Sentencia=null;
     ResultSet setDeResultados=null;
-    ResultSet ConjuntoDatos=null;
-   ResultSet ConexionDatos=null;
     static String  usuario=null;
     static String cadena=null;
     static String pass=null;
