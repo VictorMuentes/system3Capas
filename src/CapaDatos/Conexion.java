@@ -23,6 +23,8 @@ public class Conexion
  Connection Conn=null;
     PreparedStatement Sentencia=null;
     ResultSet setDeResultados=null;
+    ResultSet ConjuntoDatos=null;
+   ResultSet ConexionDatos=null;
     static String  usuario=null;
     static String cadena=null;
     static String pass=null;
@@ -89,6 +91,18 @@ public class Conexion
             throw e;
         }
     }
+    public  ResultSet EjectConsulta(String Cadena) throws SQLException{
+            try {
+                Sentencia=Conn.prepareStatement(Cadena);
+                setDeResultados = Sentencia.executeQuery();
+                return setDeResultados;
+                        
+            } catch (SQLException e) {
+                throw e;
+            }
+    
+    } 
+            
     
     
 }

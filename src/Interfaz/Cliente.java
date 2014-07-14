@@ -199,13 +199,13 @@ public void  pedirValores(){
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
-          gestClient.getCliente().setCedula(txtCedula.getText());
-
+          
+    gestClient.getCliente().setCedula(txtCedula.getText());
         try
         {
-
+        
         gestClient.Consultar();
-        enviarValores();
+        pedirValores();
 
                 // JOptionPane.showMessageDialog(this, "El dato se grabo Correctamente");
         }
@@ -217,13 +217,11 @@ public void  pedirValores(){
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        pedirValores();
+        
         try
         {
         gestClient.Nuevo();
-        
-
-        
+        pedirValores();     
         }
         catch(SQLException e)
         {

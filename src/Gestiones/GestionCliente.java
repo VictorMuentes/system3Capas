@@ -8,6 +8,7 @@ package Gestiones;
 
 import CapaDatos.Conexion;
 import ClasePOCO.Cliente;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
@@ -54,7 +55,7 @@ public class GestionCliente implements IGestion
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     try{
     Conexion.GetInstancia().Conectar();
-    Conexion.GetInstancia().Ejecutar("UPDATE cliente SET nombre='"+this.client.getNombre()+"', direccion = '"+this.client.getDireccion()+"', cupo = '"+this.client.getCupo()+"' WHERE cedula = "+this.client.getCedula());
+    Conexion.GetInstancia().Ejecutar("update cliente SET nombre='"+this.client.getNombre()+"', direccion = '"+this.client.getDireccion()+"', cupo = '"+this.client.getCupo()+"' WHERE cedula = "+this.client.getCedula());
     Conexion.GetInstancia().Desconectar();
     }
     catch(SQLException e)
@@ -80,7 +81,7 @@ public class GestionCliente implements IGestion
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     try{
     Conexion.GetInstancia().Conectar();
-    Conexion.GetInstancia().Ejecutar("DELETE FROM Cliente WHERE Cedula = "+client.getCedula());
+    Conexion.GetInstancia().Ejecutar("delete FROM cliente WHERE cedula = "+client.getCedula());
     Conexion.GetInstancia().Desconectar();
 //    DELETE FROM `facturacion`.`cliente` WHERE `cliente`.`cedula` = \'123\'"
     }
@@ -95,8 +96,15 @@ public class GestionCliente implements IGestion
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     try{
     Conexion.GetInstancia().Conectar();
-    Conexion.GetInstancia().Ejecutar("select * from cliente WHERE Cedula = "+client.getCedula());
-    Conexion.GetInstancia().Desconectar();
+        ResultSet consulta=Conexion.GetInstancia().EjectConsulta("select cedula,nombre,direccion,cupo FROM cliente WHERE Cedula = "+client.getCedula());
+   while(consulta.next())
+   {
+    this.client.setCedula(consulta.getString(1));
+    this.client.setNombre(consulta.getString(2));
+    this.client.setDireccion(consulta.getString(3));
+    this.client.setCupo(consulta.getDouble(4));
+   }
+        Conexion.GetInstancia().Desconectar();
     }
     catch(SQLException e)
     {
